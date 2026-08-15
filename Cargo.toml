@@ -1,0 +1,31 @@
+[package]
+name = "mcpg-plugin-payment-x402"
+version = "0.1.0-alpha.15"
+license = "BUSL-1.1"
+edition = "2024"
+description = "x402 (Coinbase) crypto micropayment plugin for MCPG gateway"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+mcpg-plugin-protocol = { git = "https://github.com/mcpg-dev/mcpg-plugin-protocol", tag = "v0.1.0-beta.13", version = "=0.1.0-beta.13" }
+mcpg-plugin-sdk = { git = "https://github.com/mcpg-dev/mcpg-plugin-sdk", tag = "v0.1.0-beta.13", version = "=0.1.0-beta.13" }
+anyhow = "1.0"
+async-trait = "0.1"
+# `blocking` feature: facilitator verify/settle calls are sync from
+# the cdylib's perspective.
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls", "blocking"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+metrics = "0.24"
+tracing = "0.1"
+
+[features]
+default = ["cdylib-export"]
+cdylib-export = []
+# Declared so the SDK's per-kind `build_static` accessor
+# (gated `#[cfg(feature = "static-firstparty")]`) does not trigger
+# `unexpected_cfgs` in consumer compilation. Empty: this plugin is
+# consumed as a cdylib, not via the static-firstparty fast path.
+static-firstparty = []

@@ -1,0 +1,14 @@
+schema: mcpg.dev/plugin/v1
+id: dev.mcpg.payment.x402
+name: x402 Crypto Micropayments
+license: BUSL-1.1
+description: |
+  x402-compatible crypto micropayment gate. Issues HTTP 402 with
+  on-chain payment instructions and verifies inbound proofs before
+  allowing the tool call to proceed.
+class: tool_gate
+runtime: native-cdylib-v1
+protocol_version: "1.0"
+required_capabilities:
+  # Facilitator /verify + /settle calls.
+  - network_outbound
