@@ -42,7 +42,7 @@ plugins:
     source: { path: ./plugins/libmcpg_plugin_payment_x402.so }
     # or, platform-agnostic — the gateway resolves the artifact for its own
     # os/arch/libc at boot:
-    # source: { oci: ghcr.io/mcpg-dev/source-code/plugins/payment-x402:protocol-1 }
+    # source: { oci: ghcr.io/mcpg-dev/plugins/payment-x402 }
     granted_capabilities: [network_outbound]   # required — the facilitator call
     config:
       config:
